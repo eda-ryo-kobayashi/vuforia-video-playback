@@ -7,7 +7,7 @@ android {
 
     sourceSets.main {
         jni.srcDirs = []
-        jniLibs.srcDir "$VUFORIA_SDK_DIR/build/lib/"
+        jniLibs.srcDir "$VUFORIA_SDK_DIR/libs/lib/"
     }
 
     defaultConfig {

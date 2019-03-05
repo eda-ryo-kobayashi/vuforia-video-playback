@@ -33,7 +33,7 @@ import java.lang.ref.WeakReference;
 
 public class SampleApplicationSession implements UpdateCallbackInterface
 {
-    
+    private static final String DEV_KEY = "AcdGAT3/////AAABmV0/pUI6/EIDhEQ7vYuRKc094mseyo0BDIt1DOnH6dNxzJtUVi38NQCVHGZ5Tjz++/E7ZL2bjsQxXaeZUpu2SJtZdJQDn4ngYADKPPnAc3tkL77yrGnllz11G9WQmf+IwdnJ1ZLETQ+N18p5nPsvPQTUnhfBjJShcAFVUugsnNZqi/CCOrihp1hqGSrWzonBf32CckBecinxv1UAT2fKtGKwWNUVb9SSFhzDO9oI2P3mZ7SA2G7FiR4Kmml3Ai485ydev/MQ0mV6eQSE2C06pGan1/tWcjk1hnvijDcfvDeUgWTseuUG6jRdPW1fAFxdNkSDNUBFL51+O9/2l+KDC9CgX0dsz0Jb3Tk+8sstHzR6";
     private static final String LOGTAG = "SampleAppSession";
     
     // Reference to the current activity
@@ -399,7 +399,7 @@ public class SampleApplicationSession implements UpdateCallbackInterface
             // Prevent the onDestroy() method to overlap with initialization:
             synchronized (mLifecycleLock)
             {
-                Vuforia.setInitParameters(mActivityRef.get(), mVuforiaFlags, "");
+                Vuforia.setInitParameters(mActivityRef.get(), mVuforiaFlags, DEV_KEY);
                 
                 do
                 {

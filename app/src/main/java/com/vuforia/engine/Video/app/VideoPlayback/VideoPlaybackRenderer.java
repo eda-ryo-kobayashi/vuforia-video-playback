@@ -405,7 +405,7 @@ public class VideoPlaybackRenderer implements GLSurfaceView.Renderer, SampleAppR
         // (it is aware of the GL_TEXTURE_EXTERNAL_OES extension)
         videoPlaybackShaderID = SampleUtils.createProgramFromShaderSrc(
             VideoPlaybackShaders.VIDEO_PLAYBACK_VERTEX_SHADER,
-            VideoPlaybackShaders.VIDEO_PLAYBACK_FRAGMENT_SHADER);
+            VideoPlaybackShaders.VIDEO_PLAYBACK_CHROMA_KEY_SHADER);
         videoPlaybackVertexHandle = GLES20.glGetAttribLocation(
             videoPlaybackShaderID, "vertexPosition");
         videoPlaybackTexCoordHandle = GLES20.glGetAttribLocation(
@@ -635,7 +635,11 @@ public class VideoPlaybackRenderer implements GLSurfaceView.Renderer, SampleAppR
                         projectionMatrix, 0, modelViewMatrixVideo, 0);
                 
                 GLES20.glUseProgram(videoPlaybackShaderID);
-                
+
+                GLES20.glEnable(GLES20.GL_BLEND);
+                GLES20.glBlendFunc(GLES20.GL_SRC_ALPHA,
+                        GLES20.GL_ONE_MINUS_SRC_ALPHA);
+
                 // Prepare for rendering the keyframe
                 GLES20.glVertexAttribPointer(videoPlaybackVertexHandle, 3,
                     GLES20.GL_FLOAT, false, 0, quadVertices);
@@ -669,7 +673,9 @@ public class VideoPlaybackRenderer implements GLSurfaceView.Renderer, SampleAppR
                 
                 GLES20.glDisableVertexAttribArray(videoPlaybackVertexHandle);
                 GLES20.glDisableVertexAttribArray(videoPlaybackTexCoordHandle);
-                
+
+                GLES20.glDisable(GLES20.GL_BLEND);
+
                 GLES20.glUseProgram(0);
                 
             }
