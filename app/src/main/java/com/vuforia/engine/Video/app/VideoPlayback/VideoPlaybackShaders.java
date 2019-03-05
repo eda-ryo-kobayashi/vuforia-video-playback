@@ -48,14 +48,16 @@ public class VideoPlaybackShaders {
 
     public static final String VIDEO_PLAYBACK_CHROMA_KEY_SHADER = " \n" +
             "#extension GL_OES_EGL_image_external : require \n" +
+            "precision mediump float; \n" +
             "varying vec2 texCoord;\n" +
             "\n" +
+            "uniform vec3 chromaKey; \n" +
             "uniform samplerExternalOES texSamplerOES;\n" +
             "\n" +
             "void main()\n" +
             "{\n" +
-            "    // Keying for blue color\n" +
-            "    vec3 keying_color = vec3(0., 0., 1.);\n" +
+            "    // Keying for specific color\n" +
+            "    vec3 keying_color = chromaKey;\n" +
             "    float thresh = 0.8;\n" +
             "    float slope = 0.2;\n" +
             "    vec3 input_color = texture2D(texSamplerOES, texCoord).rgb;\n" +
