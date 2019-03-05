@@ -54,7 +54,7 @@ public class VideoPlaybackShaders {
             "\n" +
             "void main()\n" +
             "{\n" +
-            "    // Keying for green color\n" +
+            "    // Keying for blue color\n" +
             "    vec3 keying_color = vec3(0., 0., 1.);\n" +
             "    float thresh = 0.8;\n" +
             "    float slope = 0.2;\n" +
