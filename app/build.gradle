@@ -1,10 +1,9 @@
 apply plugin: 'com.android.application'
 
-def VUFORIA_SDK_DIR = '../../../'
+def VUFORIA_SDK_DIR = '../vuforia/'
 
 android {
-    compileSdkVersion 27
-    buildToolsVersion "28.0.3"
+    compileSdkVersion 28
 
     sourceSets.main {
         jni.srcDirs = []
@@ -14,7 +13,7 @@ android {
     defaultConfig {
         applicationId "com.vuforia.engine.Video"
         minSdkVersion 15
-        targetSdkVersion 27
+        targetSdkVersion 28
         versionCode 800
         versionName "8.0"
 
@@ -45,5 +44,5 @@ android {
 }
 
 dependencies {
-    implementation files("$VUFORIA_SDK_DIR/build/java/Vuforia/Vuforia.jar")
+    implementation files("$VUFORIA_SDK_DIR/libs/java/Vuforia/Vuforia.jar")
 }
