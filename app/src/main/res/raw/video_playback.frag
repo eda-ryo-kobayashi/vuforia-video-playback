@@ -22,23 +22,11 @@ void main()
 {
     // Keying for specific color
     vec3 keying_color = chromaKey;
-    float l_thresh = 0.1;
-    float h_thresh = 0.1;
+    float thresh = 0.8;
+    float slope = 0.2;
     vec3 input_color = texture2D(texSamplerOES, texCoord).rgb;
-    if (input_color.b > 0.9) {
-        gl_FragColor = vec4(input_color, 0.0);
-    } else {
-        gl_FragColor = vec4(input_color, 1.0);
-    }
-//    if (input_color.r > keying_color.r - l_thresh && input_color.r < keying_color.r + h_thresh &&
-//    input_color.g > keying_color.g - l_thresh && input_color.g < keying_color.g + h_thresh &&
-//    input_color.b > keying_color.b - l_thresh && input_color.b < keying_color.b + h_thresh) {
-//        gl_FragColor = vec4(input_color, 0.0);
-//    } else {
-//        gl_FragColor = vec4(input_color, 1.0);
-//    }
-//    float d = abs(length(abs(keying_color.rgb - input_color.rgb)));
-//    float edge0 = thresh * (1.0 - slope);
-//    float alpha = smoothstep(edge0, thresh, d);
-//    gl_FragColor = vec4(input_color, alpha);
+    float d = abs(length(abs(keying_color.rgb - input_color.rgb)));
+    float edge0 = thresh * (1.0 - slope);
+    float alpha = smoothstep(edge0, thresh, d);
+    gl_FragColor = vec4(input_color, alpha);
 }
