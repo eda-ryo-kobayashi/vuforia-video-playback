@@ -35,9 +35,14 @@ import com.vuforia.engine.SampleApplication.SampleApplicationSession;
 import com.vuforia.engine.SampleApplication.utils.SampleMath;
 import com.vuforia.engine.SampleApplication.utils.SampleUtils;
 import com.vuforia.engine.SampleApplication.utils.Texture;
+import com.vuforia.engine.Video.R;
 import com.vuforia.engine.Video.app.VideoPlayback.VideoPlayerHelper.MEDIA_STATE;
 import com.vuforia.engine.Video.app.VideoPlayback.VideoPlayerHelper.MEDIA_TYPE;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.lang.ref.WeakReference;
 import java.nio.Buffer;
 import java.nio.ByteBuffer;
@@ -103,7 +108,8 @@ public class VideoPlaybackRenderer implements GLSurfaceView.Renderer, SampleAppR
 
     Buffer quadVertices, quadTexCoords, quadIndices, quadNormals;
 
-    private float[] chromaKeyColor = {0.0f, 0.0f, 1.0f};
+    //private float[] chromaKeyColor = {0.0f, 0.0f, 1.0f};
+    private float[] chromaKeyColor = {79 / 255f, 177 / 255f, 233 / 255f};
 
     private boolean mIsActive = false;
     private Matrix44F tappingProjectionMatrix = null;
@@ -380,9 +386,21 @@ public class VideoPlaybackRenderer implements GLSurfaceView.Renderer, SampleAppR
         // The first shader is the one that will display the video data of the
         // movie
         // (it is aware of the GL_TEXTURE_EXTERNAL_OES extension)
+        final InputStream is = mActivityRef.get().getResources().openRawResource(R.raw.video_playback);
+        final BufferedReader reader = new BufferedReader(new InputStreamReader(is));
+        StringBuilder fragShader = new StringBuilder();
+        try {
+            String line = reader.readLine();
+            while (line != null) {
+                fragShader.append(line).append("\n");
+                line = reader.readLine();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         videoPlaybackShaderID = SampleUtils.createProgramFromShaderSrc(
                 VideoPlaybackShaders.VIDEO_PLAYBACK_VERTEX_SHADER,
-                VideoPlaybackShaders.VIDEO_PLAYBACK_CHROMA_KEY_SHADER);
+                fragShader.toString());
         videoPlaybackVertexHandle = GLES20.glGetAttribLocation(
                 videoPlaybackShaderID, "vertexPosition");
         videoPlaybackTexCoordHandle = GLES20.glGetAttribLocation(
@@ -589,6 +607,7 @@ public class VideoPlaybackRenderer implements GLSurfaceView.Renderer, SampleAppR
             // In any other case, such as playing or paused, we render
             // the actual contents
             {
+                // ARで動画を描画
                 float[] modelViewMatrixVideo = Tool.convertPose2GLMatrix(
                         trackableResult.getPose()).getData();
                 float[] modelViewProjectionVideo = new float[16];
