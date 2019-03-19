@@ -109,7 +109,8 @@ public class VideoPlaybackRenderer implements GLSurfaceView.Renderer, SampleAppR
     Buffer quadVertices, quadTexCoords, quadIndices, quadNormals;
 
     //private float[] chromaKeyColor = {0.0f, 0.0f, 1.0f};
-    private float[] chromaKeyColor = {79 / 255f, 177 / 255f, 233 / 255f};
+    //private float[] chromaKeyColor = {79 / 255f, 177 / 255f, 233 / 255f};
+    private float[] chromaKeyColor = {0f, 1f, 0f};
 
     private boolean mIsActive = false;
     private Matrix44F tappingProjectionMatrix = null;
