@@ -21,12 +21,13 @@ uniform samplerExternalOES texSamplerOES;
 void main()
 {
     // Keying for specific color
-    vec3 keying_color = chromaKey;
-    float thresh = 0.8;
+    vec3 keyingColor = chromaKey;
+    vec3 inputColor = texture2D(texSamplerOES, texCoord).rgb;
+
+    float thresh = 0.4;
     float slope = 0.2;
-    vec3 input_color = texture2D(texSamplerOES, texCoord).rgb;
-    float d = abs(length(abs(keying_color.rgb - input_color.rgb)));
+    float d = length(keyingColor.rgb - inputColor.rgb);
     float edge0 = thresh * (1.0 - slope);
     float alpha = smoothstep(edge0, thresh, d);
-    gl_FragColor = vec4(input_color, alpha);
+    gl_FragColor = vec4(inputColor, alpha);
 }

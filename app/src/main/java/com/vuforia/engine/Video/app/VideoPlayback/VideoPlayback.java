@@ -144,7 +144,7 @@ public class VideoPlayback extends Activity implements
             mVideoPlayerHelper[i].setActivity(this);
         }
 
-        mMovieName[STONES] = "VideoPlayback/sample_green.mp4";
+        mMovieName[STONES] = "VideoPlayback/sample_blue.mp4";
         mMovieName[CHIPS] = "VideoPlayback/SampleVideo.mp4";
 
         // Set the double tap listener:

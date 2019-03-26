@@ -110,7 +110,11 @@ public class VideoPlaybackRenderer implements GLSurfaceView.Renderer, SampleAppR
 
     //private float[] chromaKeyColor = {0.0f, 0.0f, 1.0f};
     //private float[] chromaKeyColor = {79 / 255f, 177 / 255f, 233 / 255f};
-    private float[] chromaKeyColor = {0f, 1f, 0f};
+    //private float[] chromaKeyColor = {0f, 1f, 0f};
+    // 黄色
+    //private float[] chromaKeyColor = {0xfc / 255f, 0xef / 255f, 0x50 / 255f};
+    // 青
+    private float[] chromaKeyColor = {0x4d / 255f, 0xac / 255f, 0xde / 255f};
 
     private boolean mIsActive = false;
     private Matrix44F tappingProjectionMatrix = null;
